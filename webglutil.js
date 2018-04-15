@@ -1,5 +1,15 @@
 
 /**
+ * @summary get webgl context from canvas object
+ * 
+ * @param {HTMLCanvasElement} canvas 
+ * @returns {WebGLRenderingContext} webgl context
+ */
+function getWebGLContext(canvas) {
+    return canvas.getContext('webgl');
+}
+
+/**
  * @summary load webgl shader with type
  * 
  * @param {WebGLRenderingContext} gl 
