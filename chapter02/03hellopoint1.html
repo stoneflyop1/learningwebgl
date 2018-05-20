@@ -28,7 +28,7 @@
             var fs = document.getElementById('fs').textContent;
 
             var canvas = document.getElementById('webgl');
-            var gl = canvas.getContext('webgl');
+            var gl = getWebGLContext(canvas);
             if (!gl) return;
             
             var program = initShaders(gl, vs, fs);
