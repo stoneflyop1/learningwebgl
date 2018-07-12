@@ -89,3 +89,34 @@ function initColor(gl, r, g, b, a) {
     //https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext/clear
     gl.clear(gl.COLOR_BUFFER_BIT);
 }
+
+/********************************
+ * @summary 初始化顶点缓冲区
+ * @param {Number} nCoordinates 点的维度(2,3)
+ * @param {Float32Array} vertices
+ * @param {WebGLProgram} program webgl program
+ * @param {WebGLRenderingContext} gl
+ *********************************/
+function initVertexBuffers(gl, program, vertices, nCoordinates) {
+    
+    let n = Math.floor(vertices.length/nCoordinates);
+
+    // 创建缓冲区对象
+    let vertexBuffer = gl.createBuffer();
+    if (!vertexBuffer) {
+        console.log('Failed to create the buffer object...');
+        return -1;
+    }
+    // 绑定缓冲区对象
+    gl.bindBuffer(gl.ARRAY_BUFFER, vertexBuffer);
+    // 数据写入缓冲区
+    gl.bufferData(gl.ARRAY_BUFFER, vertices, gl.STATIC_DRAW);
+
+    let a_Position = gl.getAttribLocation(program, 'a_Position');
+    // 分配给一个attribute变量
+    gl.vertexAttribPointer(a_Position, nCoordinates, gl.FLOAT, false, 0, 0);
+    // 启用attribute变量
+    gl.enableVertexAttribArray(a_Position);
+
+    return n;
+}
