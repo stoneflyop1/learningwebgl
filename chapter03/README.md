@@ -4,6 +4,8 @@
 
 [多点绘制](01multipoints.html)
 
+[三角形](02hellotriangle.html)
+
 ## 绘制类型
 
 | 基本图形 | 参数mode | 描述 |
