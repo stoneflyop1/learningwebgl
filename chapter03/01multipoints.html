@@ -36,7 +36,13 @@
             let fs = document.getElementById('fs').textContent;
             let program = initShaders(gl, vs, fs);
 
-            let n = initVertexBuffers(gl, program);
+            let vertices = new Float32Array([
+                 0.0, 0.5, 
+                -0.5, -0.5, 
+                 0.5, -0.5
+            ]);
+            
+            let n = initVertexBuffers(gl, program, vertices, 2);
             if (n < 0) {
                 console.log('Failed to set the positions of the vertices...');
                 return;
@@ -49,14 +55,16 @@
 
             gl.drawArrays(gl.POINTS, 0, n); 
         }
-
-        function initVertexBuffers(gl, program) {
-            let vertices = new Float32Array([
-                 0.0, 0.5, -0.5,
-                -0.5, 0.5, -0.5
-            ]);
-
-            let n = 3;
+        /********************************
+         * @summary 初始化顶点缓冲区
+         * @param {Number} nCoordinates
+         * @param {Float32Array} vertices
+         * @param {WebGLProgram} program webgl program
+         * @param {WebGLRenderingContext} gl
+         *********************************/
+        function initVertexBuffers(gl, program, vertices, nCoordinates) {
+            
+            let n = Math.floor(vertices.length/nCoordinates);
 
             let vertexBuffer = gl.createBuffer();
             if (!vertexBuffer) {
