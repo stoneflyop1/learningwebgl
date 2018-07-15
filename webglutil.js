@@ -94,11 +94,14 @@ function initColor(gl, r, g, b, a) {
  * @summary 初始化顶点缓冲区
  * @param {Number} nCoordinates 点的维度(2,3)
  * @param {Float32Array} vertices
+ * @param {String} variableName varialbe name in shader, default is a_Position
  * @param {WebGLProgram} program webgl program
  * @param {WebGLRenderingContext} gl
  *********************************/
-function initVertexBuffers(gl, program, vertices, nCoordinates) {
+function initVertexBuffers(gl, program, vertices, nCoordinates, variableName) {
     
+    variableName = variableName || 'a_Position';
+
     let n = Math.floor(vertices.length/nCoordinates);
 
     // 创建缓冲区对象
@@ -112,7 +115,7 @@ function initVertexBuffers(gl, program, vertices, nCoordinates) {
     // 数据写入缓冲区
     gl.bufferData(gl.ARRAY_BUFFER, vertices, gl.STATIC_DRAW);
 
-    let a_Position = gl.getAttribLocation(program, 'a_Position');
+    let a_Position = gl.getAttribLocation(program, variableName);
     // 分配给一个attribute变量
     gl.vertexAttribPointer(a_Position, nCoordinates, gl.FLOAT, false, 0, 0);
     // 启用attribute变量
