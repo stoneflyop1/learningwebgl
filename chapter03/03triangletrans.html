@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Hello Triangle</title>
+    <title>Triangle Transform</title>
 </head>
 <body>
     <canvas id="webgl" width="400" height="400">
@@ -13,8 +13,9 @@
     <script src="../webglutil.js"></script>
     <script id="vs" type="text/x-shader">
         attribute vec4 a_Position;
+        uniform vec4 u_Translation;
         void main() {
-            gl_Position = a_Position;
+            gl_Position = a_Position + u_Translation;
         }
     </script>
     <script id="fs" type="text/x-shader">
@@ -27,6 +28,10 @@
     <script src="../webglutil.js"></script>
     <script>
 
+        const xTrans = 0.5;
+        const yTrans = 0.5;
+        const zTrans = 0.0;
+
         function main() {
             let canvas = document.getElementById('webgl');
             let gl = getWebGLContext(canvas);
@@ -35,29 +40,27 @@
             let fs = document.getElementById('fs').textContent;
             let program = initShaders(gl, vs, fs);
 
-            // let vertices = new Float32Array([
-            //      0.0, 0.5, 
-            //     -0.5, -0.5, 
-            //      0.5, -0.5
-            // ]);
             let vertices = new Float32Array([
-                -0.5,  0.5, 
+                 0.0, 0.5, 
                 -0.5, -0.5, 
-                 0.5,  0.5,
                  0.5, -0.5
             ]);
+            
             let n = initVertexBuffers(gl, program, vertices, 2);
             if (n < 0) {
                 console.log('Failed to set the positions of the vertices...');
                 return;
             }
+            
+            let u_Translation = gl.getUniformLocation(program, 'u_Translation');
+            gl.uniform4f(u_Translation, xTrans, yTrans, zTrans, 0.0);
 
             // background color
             initColor(gl, 0.0,0.0,0.0,1.0);
             gl.clearColor(0.0,0.0,0.0,1.0);
             gl.clear(gl.COLOR_BUFFER_BIT);            
             
-            gl.drawArrays(gl.TRIANGLE_STRIP, 0, n);
+            gl.drawArrays(gl.TRIANGLES, 0, n);
             
         }
 
