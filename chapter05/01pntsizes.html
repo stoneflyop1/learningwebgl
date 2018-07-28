@@ -59,17 +59,6 @@
             let startIndex = 0;
             let drawNumber = n - startIndex;
             gl.drawArrays(gl.POINTS, startIndex, drawNumber); 
-        }       
-        
-
-        function getColor(x, y) {
-            if (x >= 0.0 && y >= 0.0) {
-                return [1.0, 0.0, 0.0, 1.0];
-            } else if (x < 0 && y < 0) {
-                return [0.0, 1.0, 0.0, 1.0];
-            } else {
-                return [1.0, 1.0, 1.0, 1.0];
-            }
         }
 
         main();

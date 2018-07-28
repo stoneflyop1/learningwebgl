@@ -91,8 +91,8 @@ function initColor(gl, r, g, b, a) {
 }
 
 /********************************
- * @summary 初始化顶点缓冲区
- * @param {Number} nCoordinates 点的维度(2,3)
+ * @summary 初始化顶点缓冲区，或者顶点的点尺寸
+ * @param {Number} nCoordinates 点的维度(1,2,3), default is 2
  * @param {Float32Array} vertices
  * @param {String} variableName varialbe name in shader, default is a_Position
  * @param {WebGLProgram} program webgl program
@@ -101,6 +101,8 @@ function initColor(gl, r, g, b, a) {
 function initVertexBuffers(gl, program, vertices, nCoordinates, variableName) {
     
     variableName = variableName || 'a_Position';
+
+    nCoordinates = nCoordinates || 2;
 
     let n = Math.floor(vertices.length/nCoordinates);
 

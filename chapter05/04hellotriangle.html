@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Hello Triangle</title>
+    <title>Colored Triangle</title>
 </head>
 <body>
     <canvas id="webgl" width="400" height="400">
@@ -19,9 +19,10 @@
     </script>
     <script id="fs" type="text/x-shader">
         precision mediump float;
-        uniform vec4 u_FragColor;
+        uniform float u_Width;
+        uniform float u_Height;
         void main() {
-            gl_FragColor = u_FragColor;
+            gl_FragColor = vec4(1.0-gl_FragCoord.x/u_Width,0.5,gl_FragCoord.y/u_Height,1.0);
         }
     </script>
     <script src="../webglutil.js"></script>
@@ -55,7 +56,7 @@
             // background color
             initColor(gl, 0.0,0.0,0.0,1.0);
             gl.clearColor(0.0,0.0,0.0,1.0);
-            gl.clear(gl.COLOR_BUFFER_BIT);            
+            gl.clear(gl.COLOR_BUFFER_BIT);
             
             gl.drawArrays(gl.TRIANGLE_STRIP, 0, n);
             
