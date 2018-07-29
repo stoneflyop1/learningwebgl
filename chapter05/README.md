@@ -34,3 +34,12 @@ gl.vertexAttribPointer(location, size, type, normalized, stride, offset)
 2. 为几何图形配置纹理映射方式
 3. 加载纹理图像，对其进行一些配置
 4. 在片元着色器中将相应的纹素(texels, texture elements)从纹理中抽取出来，并将纹素的颜色赋给片元
+
+### 单个图像贴图
+
+[纹理贴图](05texturecoords.html)
+
+
+### 多个图像贴图
+
+[多个图像纹理贴图](06texturecoords.html)
