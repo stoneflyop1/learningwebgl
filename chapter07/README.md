@@ -43,4 +43,8 @@
 - 长方体空间(rectangular parallelepiped)或盒状空间(box)，由正射投影(orthographic projection)产生
 - 金字塔空间(quadrangular pyramid)，由透视投影(perspective projection)产生
 
-[正射投影](OrthoView.html)
+### 正射投影示例
+
+[正射投影](05OrthoView.html)
+
+[补全丢失的一角](06OrthoView2.html)
