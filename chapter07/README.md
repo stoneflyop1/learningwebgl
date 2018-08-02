@@ -54,4 +54,8 @@
 [透视投影](07PerspectiveView.html)
 
 
-[联合](08PMView1.html)
+[联合1](08PMView1.html)
+
+[联合2](08PMView2.html)
+
+[联合3WithDepthTest](08PMView3.html)
