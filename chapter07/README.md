@@ -59,3 +59,13 @@
 [联合2](08PMView2.html)
 
 [联合3WithDepthTest](08PMView3.html)
+
+## 立方体
+
+为了重用顶点数据，我们需要给顶点编号，然后使用gl.drawElements()函数绘制三角形形成矩形，进而形成立方体。
+
+注：顶点及编号数据一般可以通过三维建模软件生成。
+
+[立方体](09HelloCube.html)
+
+[单色面立方体](09HelloCubeColored.html)
