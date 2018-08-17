@@ -125,15 +125,23 @@ function initVertexBuffers(gl, program, vertices, nCoordinates, variableName) {
 
     return n;
 }
-
-function initArrayBuffer(gl, program, data, num, type, attribute) {
+/********************************
+ * @summary 初始化顶点缓冲区，或者顶点的点尺寸
+ * @param {Number} size 点的维度(1,2,3)
+ * @param {Number} type gl.FLOAT OR gl.UNSIGNED_BYTE etc
+ * @param {Float32Array} TypedArray data
+ * @param {String} variableName varialbe name in shader
+ * @param {WebGLProgram} program webgl program
+ * @param {WebGLRenderingContext} gl
+ *********************************/
+function initArrayBuffer(gl, program, data, size, type, attribute) {
     const buffer = gl.createBuffer();
 
     gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
     gl.bufferData(gl.ARRAY_BUFFER, data, gl.STATIC_DRAW);
 
     const a_attribute = gl.getAttribLocation(program, attribute);
-    gl.vertexAttribPointer(a_attribute, num, type, false, 0, 0);
+    gl.vertexAttribPointer(a_attribute, size, type, false, 0, 0);
     gl.enableVertexAttribArray(a_attribute);
 
     return true;
