@@ -72,6 +72,7 @@
                     const face = checkFace(gl, n, x_in_canvas, y_in_canvas, currentAngle, u_PickedFace,
                     viewProjMatrix, u_MvpMatrix);
                     gl.uniform1i(u_PickedFace, face);
+                    console.log(face);
                     draw(gl, n, currentAngle, viewProjMatrix, u_MvpMatrix);
                 }
             }
@@ -156,7 +157,6 @@
         }
 
         function checkFace(gl, n, x, y, currentAngle, u_PickedFace, viewProjMatrix, u_MvpMatrix) {
-            let picked = false;
             gl.uniform1i(u_PickedFace, 0); // Draw by writing surface number into alpha value
             draw(gl, n, currentAngle, viewProjMatrix, u_MvpMatrix);
 
