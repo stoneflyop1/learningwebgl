@@ -61,3 +61,12 @@ shader中的gl_Postion的w分量的值一般就是顶点坐标的z分量乘以-1
 3. 若小于r，则绘制该片元，否则舍弃(discard)它
 
 [示例](06RoundPnts.html)
+
+## Alpha Blending
+
+使用Alpha混合可实现半透明效果。
+
+```js
+gl.enable(gl.BLEND); // 开启混合功能
+gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA); // 指定混合函数
+```
