@@ -68,5 +68,30 @@ shader中的gl_Postion的w分量的值一般就是顶点坐标的z分量乘以-1
 
 ```js
 gl.enable(gl.BLEND); // 开启混合功能
-gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA); // 指定混合函数
+const src_factor = gl.SRC_ALPHA; // 源颜色在混合后颜色中的权重因子
+const dst_factor = gl.ONE_MINUS_SRC_ALPHA; // 指定目标颜色再混合后颜色中的权重因子
+gl.blendFunc(src_factor, dst_factor); // 指定混合函数
 ```
+
+`混合后颜色 = 源颜色 X src_factor + 目标颜色 X dst_factor`
+
+[三角形示例](07LookAtBlendedTriangles.html)
+
+[立方体示例](08HelloCubeBlend.html)
+
+立方体示例中关闭了隐藏面消除功能，若要实现透明与不透明物体共存，则需要使用开启此功能：
+
+1. 开启隐藏面消除功能
+    ```js
+    gl.enable(gl.DEPTH_TEST);
+    ```
+2. 绘制所有不透明物体
+3. 锁定用于进行隐藏面消除的[深度缓冲区](../chapter07)的写入操作，使之只读
+   ```js
+   gl.depthMask(false);
+   ```
+4. 绘制所有半透明物体，注意它们应当按照深度排序，然后从后向前绘制
+5. 释放深度缓冲区，使之可读可写
+   ```js
+   gl.depthMask(true);
+   ```
