@@ -42,9 +42,10 @@ function loadShader(gl, type, source) {
  * @param {WebGLRenderingContext} gl 
  * @param {string} vs vertext shader string
  * @param {string} fs fragment shader string
+ * @param {boolean} noUseProgram not use the created program immediately
  * @returns {WebGLProgram} webgl context program
  */
-function initShaders(gl, vs, fs) {
+function initShaders(gl, vs, fs, noUseProgram) {
     const vertexShader = loadShader(gl, gl.VERTEX_SHADER, vs);
     const fragmentShader = loadShader(gl, gl.FRAGMENT_SHADER, fs);
 
@@ -60,12 +61,17 @@ function initShaders(gl, vs, fs) {
     if (!gl.getProgramParameter(program, gl.LINK_STATUS)) {
         alert('Unable to initialize the shader program: ' + 
             // https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext/getProgramInfoLog
-            gl.getProgramInfoLog(shaderProgram));
+            gl.getProgramInfoLog(program));
+        gl.deleteProgram(program);
+        gl.deleteShader(fragmentShader);
+        gl.deleteShader(vertexShader);
         return null;
     }
 
-    // https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext/useProgram
-    gl.useProgram(program);
+    if (!noUseProgram) {
+        // https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext/useProgram
+        gl.useProgram(program);
+    }    
 
     return program;
 }

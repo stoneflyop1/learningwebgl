@@ -95,3 +95,13 @@ gl.blendFunc(src_factor, dst_factor); // 指定混合函数
    ```js
    gl.depthMask(true);
    ```
+
+## 使用多个着色器
+
+多个着色器需要多个WebGLProgram的使用。
+
+[示例](09ProgramObject.html)，可以使用python的simplehttpserver避免跨域问题
+
+```sh
+python -m http.server # http://localhost:8000/chapter10/09ProgramObject.html
+```
