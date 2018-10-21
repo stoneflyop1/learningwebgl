@@ -13,8 +13,8 @@ function getWebGLContext(canvas) {
  * @summary load webgl shader with type
  * 
  * @param {WebGLRenderingContext} gl 
- * @param {number} type webgl shader type
- * @param {string} source webgl shader source
+ * @param {Number} type webgl shader type
+ * @param {String} source webgl shader source
  * @returns {WebGLShader} compiled webgl shader
  */
 function loadShader(gl, type, source) {
@@ -40,9 +40,9 @@ function loadShader(gl, type, source) {
  * @summary initialize vertext and fragment shaders
  * 
  * @param {WebGLRenderingContext} gl 
- * @param {string} vs vertext shader string
- * @param {string} fs fragment shader string
- * @param {boolean} noUseProgram not use the created program immediately
+ * @param {String} vs vertext shader string
+ * @param {String} fs fragment shader string
+ * @param {Boolean} noUseProgram not use the created program immediately
  * @returns {WebGLProgram} webgl context program
  */
 function initShaders(gl, vs, fs, noUseProgram) {
