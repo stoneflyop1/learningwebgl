@@ -14,7 +14,6 @@ gl.vertexAttribPointer(location, size, type, normalized, stride, offset)
 - stride：指定相邻两个顶点间的字节数，默认为0
 - offset：指定缓冲区对象中的偏移量（以字节为单位），即attribute变量从缓冲区中的何处开始存储。若从起始位置开始，该参数应设为0
 
-
 ## 颜色
 
 [varying变量，彩色三角形](03pntcolors.html)
@@ -38,7 +37,6 @@ gl.vertexAttribPointer(location, size, type, normalized, stride, offset)
 ### 单个图像贴图
 
 [纹理贴图](05texturecoords.html)
-
 
 ### 多个图像贴图
 

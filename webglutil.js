@@ -1,6 +1,6 @@
 
 /**
- * @summary get webgl context from canvas object
+ * get webgl context from canvas object
  * 
  * @param {HTMLCanvasElement} canvas 
  * @returns {WebGLRenderingContext} webgl context
@@ -10,7 +10,7 @@ function getWebGLContext(canvas) {
 }
 
 /**
- * @summary load webgl shader with type
+ * load webgl shader with type
  * 
  * @param {WebGLRenderingContext} gl 
  * @param {number} type webgl shader type
@@ -25,19 +25,20 @@ function loadShader(gl, type, source) {
     //https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext/compileShader
     gl.compileShader(shader);
     //https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext/getShaderParameter
-    if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {                
-        alert('An error occurred compiling the shaders: ' + 
-            //https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext/getShaderInfoLog
-            gl.getShaderInfoLog(shader));
+    if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
+        const err = 'An error occurred compiling the shaders: ' + 
+        //https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext/getShaderInfoLog
+        gl.getShaderInfoLog(shader);
         // https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext/deleteShader
         gl.deleteShader(shader);
+        console.error(err);
         return null;
     }
     return shader;
 }
 
 /**
- * @summary initialize vertext and fragment shaders
+ * initialize vertext and fragment shaders
  * 
  * @param {WebGLRenderingContext} gl 
  * @param {string} vs vertext shader string
@@ -58,9 +59,10 @@ function initShaders(gl, vs, fs) {
 
     // https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext/getProgramParameter
     if (!gl.getProgramParameter(program, gl.LINK_STATUS)) {
-        alert('Unable to initialize the shader program: ' + 
-            // https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext/getProgramInfoLog
-            gl.getProgramInfoLog(shaderProgram));
+        const err = 'Unable to initialize the shader program: ' + 
+        // https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext/getProgramInfoLog
+        gl.getProgramInfoLog(shaderProgram);
+        console.error(err);
         return null;
     }
 
@@ -71,7 +73,7 @@ function initShaders(gl, vs, fs) {
 }
 
 /**
- * @summary initialize color for webgl context
+ * initialize color for webgl context
  * 
  * @param {WebGLRenderingContext} gl 
  * @param {Number} r red: 0.0 ~ 1.0
@@ -91,8 +93,8 @@ function initColor(gl, r, g, b, a) {
 }
 
 /********************************
- * @summary 初始化顶点缓冲区，或者顶点的点尺寸
- * @param {Number} nCoordinates 点的维度(1,2,3), default is 2
+ * initialize vertex buffers or point size buffers
+ * @param {Number} nCoordinates vertex dimensions (1,2,3), default is 2
  * @param {Float32Array} vertices
  * @param {String} variableName varialbe name in shader, default is a_Position
  * @param {WebGLProgram} program webgl program
@@ -106,27 +108,27 @@ function initVertexBuffers(gl, program, vertices, nCoordinates, variableName) {
 
     let n = Math.floor(vertices.length/nCoordinates);
 
-    // 创建缓冲区对象
+    // 1. create buffer
     let vertexBuffer = gl.createBuffer();
     if (!vertexBuffer) {
         console.log('Failed to create the buffer object...');
         return -1;
     }
-    // 绑定缓冲区对象
+    // 2. bind buffer
     gl.bindBuffer(gl.ARRAY_BUFFER, vertexBuffer);
-    // 数据写入缓冲区
+    // 3. write data to buffer
     gl.bufferData(gl.ARRAY_BUFFER, vertices, gl.STATIC_DRAW);
 
     let a_Position = gl.getAttribLocation(program, variableName);
-    // 分配给一个attribute变量
+    // 4. assign an attribute
     gl.vertexAttribPointer(a_Position, nCoordinates, gl.FLOAT, false, 0, 0);
-    // 启用attribute变量
+    // 5. enable attribute
     gl.enableVertexAttribArray(a_Position);
 
     return n;
 }
 /********************************
- * @summary 初始化顶点缓冲区，或者顶点的点尺寸
+ *  initialize array buffers
  * @param {Number} size 点的维度(1,2,3)
  * @param {Number} type gl.FLOAT OR gl.UNSIGNED_BYTE etc
  * @param {Float32Array} TypedArray data
