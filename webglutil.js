@@ -13,8 +13,8 @@ function getWebGLContext(canvas) {
  * load webgl shader with type
  * 
  * @param {WebGLRenderingContext} gl 
- * @param {number} type webgl shader type
- * @param {string} source webgl shader source
+ * @param {Number} type webgl shader type
+ * @param {String} source webgl shader source
  * @returns {WebGLShader} compiled webgl shader
  */
 function loadShader(gl, type, source) {
@@ -41,11 +41,12 @@ function loadShader(gl, type, source) {
  * initialize vertext and fragment shaders
  * 
  * @param {WebGLRenderingContext} gl 
- * @param {string} vs vertext shader string
- * @param {string} fs fragment shader string
+ * @param {String} vs vertext shader string
+ * @param {String} fs fragment shader string
+ * @param {Boolean} noUseProgram not use the created program immediately
  * @returns {WebGLProgram} webgl context program
  */
-function initShaders(gl, vs, fs) {
+function initShaders(gl, vs, fs, noUseProgram) {
     const vertexShader = loadShader(gl, gl.VERTEX_SHADER, vs);
     const fragmentShader = loadShader(gl, gl.FRAGMENT_SHADER, fs);
 
@@ -62,12 +63,17 @@ function initShaders(gl, vs, fs) {
         const err = 'Unable to initialize the shader program: ' + 
         // https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext/getProgramInfoLog
         gl.getProgramInfoLog(shaderProgram);
+        gl.deleteProgram(program);
+        gl.deleteShader(fragmentShader);
+        gl.deleteShader(vertexShader);
         console.error(err);
         return null;
     }
 
-    // https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext/useProgram
-    gl.useProgram(program);
+    if (!noUseProgram) {
+        // https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext/useProgram
+        gl.useProgram(program);
+    }    
 
     return program;
 }

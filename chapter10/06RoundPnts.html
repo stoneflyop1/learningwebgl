@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Rounded Points</title>
+    <script type="text/x-shader" id="vs">
+        attribute vec4 a_Position;
+        void main() {
+            gl_Position = a_Position;
+            gl_PointSize = 10.0;
+        }
+    </script>
+    <script type="text/x-shader" id="fs">
+        precision mediump float;
+        void main() {
+            float radius = 0.5;
+            float dist = distance(gl_PointCoord, vec2(radius,radius));
+            if (dist < radius) {
+                gl_FragColor = vec4(1.0,0.0,0.0,1.0);
+            } else {
+                discard;
+            }
+        }
+    </script>
+</head>
+<body>
+    <canvas id="webgl" width="400" height="400">
+        Please use a webgl-enabled browser!
+    </canvas>
+    <script src="../webglutil.js"></script>
+    <script src="./06RoundPnts.js"></script>
+</body>
+</html>

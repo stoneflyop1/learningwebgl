@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>HUD</title>
+</head>
+<style>
+    canvas#webgl {
+        position: absolute;
+        z-index: 0;
+    }
+    canvas#hud {
+        position: absolute;
+        z-index: 1;
+    }
+</style>
+<body>
+    <canvas id="webgl" width="400" height="400"></canvas>
+    <canvas id="hud" width="400" height="400"></canvas>
+    <script id="vs" type="text/x-shader">
+        attribute vec4 a_Position;
+        attribute vec4 a_Color;
+        uniform mat4 u_MvpMatrix;
+        uniform bool u_Clicked;
+        varying vec4 v_Color;
+        void main() {
+            gl_Position = u_MvpMatrix * a_Position;
+            if (u_Clicked) {
+                v_Color = vec4(1.0,0.0,0.0,1.0);
+            } else {
+                v_Color = a_Color;
+            }
+        }
+    </script>
+    <script id="fs" type="text/x-shader">
+        precision mediump float;
+        varying vec4 v_Color;
+        void main() {
+            gl_FragColor = v_Color;
+        }
+    </script>
+    <script src="../cuon-matrix.js"></script>
+    <script src="../webglutil.js"></script>
+    <script src="./04HUD.js"></script>
+</body>
+</html>
