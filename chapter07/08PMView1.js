@@ -1,3 +1,6 @@
+/// <reference path="../webglutil.js"/>
+/// <reference path="../cuon-matrix.js"/>
+
 function main() {
     const canvas = document.getElementById('webgl');
     const gl = getWebGLContext(canvas);

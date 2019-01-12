@@ -1,3 +1,6 @@
+/// <reference path="../webglutil.js"/>
+/// <reference path="../cuon-matrix.js"/>
+
 function main() {
     var vs = document.getElementById('vs').textContent;
     var fs = document.getElementById('fs').textContent;

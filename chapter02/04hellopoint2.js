@@ -1,3 +1,5 @@
+/// <reference path="../webglutil.js"/>
+
 function main() {
     var vs = document.getElementById('vs').textContent;
     var fs = document.getElementById('fs').textContent;

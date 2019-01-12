@@ -1,3 +1,5 @@
+/// <reference path="../webglutil.js"/>
+
 function main() {
     let canvas = document.getElementById('webgl');
     let gl = getWebGLContext(canvas);
